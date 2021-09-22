@@ -1,12 +1,12 @@
 <template>
-	<div class="home">
-			TODO - add links/description here
-	</div>
+  <div class="home">
+  </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 
-export default {
-	name: "Home",
-};
+export default Vue.extend({
+  name: 'Home',
+});
 </script>
