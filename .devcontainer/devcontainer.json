@@ -3,28 +3,25 @@
 {
 	"name": "vue-fretboards",
 	"dockerFile": "Dockerfile",
-
 	"mounts": [
 		// Keep command history 
 		"source=vue-fretboards-bashhistory,target=/home/vscode/commandhistory",
 	],
-
 	// Set *default* container specific settings.json values on container create.
-	"settings": { 
+	"settings": {
 		"terminal.integrated.shell.linux": "/bin/bash",
 		"files.eol": "\n",
 	},
-	
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"octref.vetur",
+		"ms-vscode.azure-account",
+		"ms-azuretools.vscode-azureresourcegroups",
+		"ms-azuretools.vscode-azurestaticwebapps"
 	],
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
-
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "echo hello",
-
 	"remoteUser": "vscode",
 }
