@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import FretTest from "../views/FretTest.vue";
+import MajorKeyNotes from "../views/MajorKeyNotes.vue"
 
 Vue.use(VueRouter);
 
@@ -10,6 +11,11 @@ const routes = [
 		path: "/",
 		name: "Home",
 		component: Home,
+	},
+	{
+		path: "/major-key",
+		name: "MajorKeyNotes", 
+		component: MajorKeyNotes
 	},
 	{
 		path: "/frets",

@@ -66,6 +66,13 @@ export class Instrument {
 	}
 }
 
+export function TransposeNote(note: Note, interval: number) {
+	note += interval;
+	while (note < 0){
+		note += 12;
+	}
+	return note % 12;
+}
 
 export function GetNotesForMajorKey(keyNote : Note) {
 	const intervals = [2, 2, 1, 2, 2, 2, 1];
@@ -73,7 +80,7 @@ export function GetNotesForMajorKey(keyNote : Note) {
 	let note = keyNote;
 	for (let i = 0; i < intervals.length; i++) {
 		const interval = intervals[i];
-		note = (note + interval) % 12;
+		note = TransposeNote(note, interval);
 		notes.push(note);
 	}
 	return notes;
@@ -99,7 +106,7 @@ export function GetBubblesByMajorKey(keyNote: Note, instrument : Instrument, get
 			fretIndex <= instrument.numberOfFrets;
 			fretIndex++
 		) {
-			const fretNoteIndex = (fretIndex + string) % 12;
+			const fretNoteIndex = TransposeNote(string, fretIndex);
 			if (keyNotes.indexOf(fretNoteIndex) !== -1) {
 				const fretNoteName = getNoteName(fretNoteIndex);
 				stringBubbles[fretIndex] = {
