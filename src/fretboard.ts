@@ -50,7 +50,7 @@ export function GetNoteNameSharp(note: Note) : string {
 
 export enum FretMarkType {
 	Single = 'single',
-	Double = 'double,'
+	Double = 'double'
 }
 
 export class Instrument {

@@ -13,7 +13,6 @@
 					'single-fretmark':
 						stringIndex === 0 && instrument.fretMarks[fretIndex] === 'single',
 				}"
-				:data-notex="getBubbleText(stringIndex, fretIndex)"
 			>
 				<span
 					v-if="getBubbleText(stringIndex, fretIndex)"
