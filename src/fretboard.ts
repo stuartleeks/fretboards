@@ -119,6 +119,31 @@ export function GetBubblesByMajorKey(keyNote: Note, instrument : Instrument, get
 	}
 	return result;
 }
+export function GetBubblesForAllFrets(instrument : Instrument, getNoteName : GetNoteName) {
+	const result : Record<number, Record<number, Bubble>> = {};
+	for (
+		let stringIndex = 0;
+		stringIndex < instrument.strings.length;
+		stringIndex++
+	) {
+		const string = instrument.strings[stringIndex];
+		const stringBubbles :Record<number, Bubble> = {};
+		for (
+			let fretIndex = 0;
+			fretIndex <= instrument.numberOfFrets;
+			fretIndex++
+		) {
+			const fretNoteIndex = TransposeNote(string, fretIndex);
+			const fretNoteName = getNoteName(fretNoteIndex);
+			stringBubbles[fretIndex] = {
+				text: fretNoteName,
+				color: 'white',
+			};
+		}
+		result[stringIndex + 1] = stringBubbles;
+	}
+	return result;
+}
 
 // function getBubblesByNote(note, instrument, noteNames) {
 //   const result = {};

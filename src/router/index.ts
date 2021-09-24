@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import FretTest from "../views/FretTest.vue";
 import MajorKeyNotes from "../views/MajorKeyNotes.vue"
+import AllNotes from "../views/AllNotes.vue"
 
 Vue.use(VueRouter);
 
@@ -18,7 +19,12 @@ const routes = [
 		component: MajorKeyNotes
 	},
 	{
-		path: "/frets",
+		path: "/all-notes",
+		name: "AllNote", 
+		component: AllNotes
+	},
+	{
+		path: "/frettest",
 		name: "FretTest", 
 		component: FretTest
 	},
