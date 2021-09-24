@@ -104,9 +104,11 @@ body {
 	display: flex;
 	flex-direction: column;
 	background-color: #be975b;
-	width: 100%;
+	width: fit-content;
+	min-width: 100%;
 	height: calc(var(--fretboard-height) * 1px);
 	margin-top: 50px;
+	overflow: hidden; /* prevent offset box shadow from string overflowing*/
 }
 
 .string {
