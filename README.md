@@ -1,5 +1,9 @@
 # fretboards
 
+A project to explore [Vue.js](https://vuejs.org/) and [Azure Static Web Apps](https://docs.microsoft.com/en-us/azure/static-web-apps/overview).
+
+Site hosted here: https://fretboard.stuartleeks.com/
+
 ## Project setup
 ```
 npm install
@@ -19,6 +23,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
