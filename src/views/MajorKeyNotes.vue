@@ -1,28 +1,42 @@
 <template>
 	<div>
 		<h1>Major Key Notes</h1>
-		<div>
-			<label for="instrument">Choose instrument:</label>
-			<select v-model="instrument" id="instrument">
-				<option
-					v-for="instrument in instruments"
-					:value="instrument"
-					:key="instrument.name"
-				>
-					{{ instrument.name }}
-				</option>
-			</select>
+		<div id="options">
+			<div>
+				<label for="instrument">Choose instrument:</label>
+				<select v-model="instrument" id="instrument">
+					<option
+						v-for="instrument in instruments"
+						:value="instrument"
+						:key="instrument.name"
+					>
+						{{ instrument.name }}
+					</option>
+				</select>
+			</div>
+			<div>
+				<label for="key">Choose key:</label>
+				<select v-model="majorKeyNote" id="key">
+					<option v-for="note in notes" :value="note.note" :key="note.note">
+						{{ note.noteName }}
+					</option>
+				</select>
+			</div>
+			<div>
+				<label for="noteName">Accidentals:</label>
+				<select v-model="getNoteName" id="noteName">
+					<option
+						v-for="nameFunc in noteNameFuncs"
+						:value="nameFunc.func"
+						:key="nameFunc.name"
+					>
+						{{ nameFunc.name }}
+					</option>
+				</select>
+			</div>
 		</div>
 		<div>
-			<label for="key">Choose key:</label>
-			<select v-model="majorKeyNote" id="key">
-				<option v-for="note in notes" :value="note.note" :key="note.note">
-					{{ note.noteName }}
-				</option>
-			</select>
-		</div>
-		<div>
-			<input id="showScales" type="checkbox" v-model="showScales"/>
+			<input id="showScales" type="checkbox" v-model="showScales" />
 			<label for="showScales">Show individual scales</label>
 			<input id="showCommonNotes" type="checkbox" v-model="showCommonNotes" />
 			<label for="showCommonNotes">Show common notes</label>
@@ -49,12 +63,10 @@ import {
 	DefaultInstruments,
 	GetBubblesByMajorKey,
 	GetBubblesByMajorKeyCommonNotes,
+	GetNoteNameFlat,
 	GetNoteNameSharp,
 	TransposeNote,
 } from "@/fretboard";
-
-const getNoteName = GetNoteNameSharp;
-
 
 export default {
 	name: "MajorKeyNotes",
@@ -66,56 +78,66 @@ export default {
 		return {
 			instrument: instrument,
 			instruments: DefaultInstruments,
-			notes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(function (n) {
-				return { note: n, noteName: getNoteName(n) };
-			}),
 			majorKeyNote: 1,
 			showScales: true,
-			showCommonNotes: false
+			showCommonNotes: false,
+			getNoteName: GetNoteNameSharp,
+			noteNameFuncs: [
+				{ name: "Sharps", func: GetNoteNameSharp },
+				{ name: "Flats", func: GetNoteNameFlat },
+			],
 		};
 	},
 	computed: {
+		notes() {
+			const noteNameFunc = this.getNoteName;
+			const result = [];
+			for (let n = 0; n < 12; n++) {
+				result.push({ note: n, noteName: noteNameFunc(n) });
+			}
+			return result;
+		},
 		rootNoteName() {
-			return getNoteName(this.majorKeyNote);
+			return this.getNoteName(this.majorKeyNote);
 		},
 		rootBubbles() {
 			return GetBubblesByMajorKey(
 				this.majorKeyNote,
 				this.instrument,
-				GetNoteNameSharp
+				this.getNoteName
 			);
 		},
 		fourthNote() {
 			return TransposeNote(this.majorKeyNote, 5);
 		},
 		fourthNoteName() {
-			return getNoteName(this.fourthNote);
+			return this.getNoteName(this.fourthNote);
 		},
 		fourthBubbles() {
 			return GetBubblesByMajorKey(
 				this.fourthNote,
 				this.instrument,
-				GetNoteNameSharp
+				this.getNoteName
 			);
 		},
 		fifthNote() {
 			return TransposeNote(this.majorKeyNote, 7);
 		},
 		fifthNoteName() {
-			return getNoteName(this.fifthNote);
+			return this.getNoteName(this.fifthNote);
 		},
 		fifthBubbles() {
 			return GetBubblesByMajorKey(
 				this.fifthNote,
 				this.instrument,
-				GetNoteNameSharp
+				this.getNoteName
 			);
 		},
 		commonBubbles() {
 			return GetBubblesByMajorKeyCommonNotes(
 				this.majorKeyNote,
 				this.instrument,
-				GetNoteNameSharp
+				this.getNoteName
 			);
 		},
 	},
@@ -123,4 +145,10 @@ export default {
 </script>
 
 <style>
+#options {
+	margin-bottom: 1em;
+}
+#options > div {
+	padding-top: 0.5em;
+}
 </style>

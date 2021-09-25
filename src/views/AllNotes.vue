@@ -1,13 +1,31 @@
 <template>
 	<div>
 		<h1>All Notes</h1>
-		<div>
-			Choose instrument: 
-			<select v-model="instrument">
-				<option v-for="instrument in instruments" :value="instrument" :key="instrument.name">
-					{{ instrument.name }}
-				</option>
-			</select>
+		<div id="options">
+			<div>
+				Choose instrument:
+				<select v-model="instrument">
+					<option
+						v-for="instrument in instruments"
+						:value="instrument"
+						:key="instrument.name"
+					>
+						{{ instrument.name }}
+					</option>
+				</select>
+			</div>
+			<div>
+				<label for="noteName">Accidentals:</label>
+				<select v-model="getNoteName" id="noteName">
+					<option
+						v-for="nameFunc in noteNameFuncs"
+						:value="nameFunc.func"
+						:key="nameFunc.name"
+					>
+						{{ nameFunc.name }}
+					</option>
+				</select>
+			</div>
 		</div>
 		<FretboardComponent :instrument="instrument" :bubbles="bubbles" />
 	</div>
@@ -20,9 +38,8 @@ import {
 	DefaultInstruments,
 	GetBubblesForAllFrets,
 	GetNoteNameSharp,
+	GetNoteNameFlat,
 } from "@/fretboard";
-
-const getNoteName = GetNoteNameSharp;
 
 export default {
 	name: "AllNotes",
@@ -34,23 +51,26 @@ export default {
 		return {
 			instrument: instrument,
 			instruments: DefaultInstruments,
+			getNoteName: GetNoteNameSharp,
+			noteNameFuncs: [
+				{ name: "Sharps", func: GetNoteNameSharp },
+				{ name: "Flats", func: GetNoteNameFlat },
+			],
 		};
 	},
 	computed: {
 		bubbles() {
-			return GetBubblesForAllFrets(this.instrument, getNoteName);
+			return GetBubblesForAllFrets(this.instrument, this.getNoteName);
 		},
 	},
 };
 </script>
 
 <style>
-#zapp {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #2c3e50;
-	margin-top: 60px;
+#options {
+	margin-bottom: 1em;
+}
+#options > div {
+	padding-top: 0.5em;
 }
 </style>
