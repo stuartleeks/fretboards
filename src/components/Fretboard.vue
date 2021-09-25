@@ -106,7 +106,6 @@ body {
 	width: fit-content;
 	min-width: 100%;
 	height: calc(var(--fretboard-height) * 1px);
-	margin-top: 50px;
 	overflow: hidden; /* prevent offset box shadow from string overflowing*/
 }
 

@@ -2,27 +2,43 @@
 	<div>
 		<h1>Major Key Notes</h1>
 		<div>
-			Choose instrument: 
-			<select v-model="instrument">
-				<option v-for="instrument in instruments" :value="instrument" :key="instrument.name">
+			<label for="instrument">Choose instrument:</label>
+			<select v-model="instrument" id="instrument">
+				<option
+					v-for="instrument in instruments"
+					:value="instrument"
+					:key="instrument.name"
+				>
 					{{ instrument.name }}
 				</option>
 			</select>
 		</div>
 		<div>
-			Choose key: 
-			<select v-model="majorKeyNote">
+			<label for="key">Choose key:</label>
+			<select v-model="majorKeyNote" id="key">
 				<option v-for="note in notes" :value="note.note" :key="note.note">
 					{{ note.noteName }}
 				</option>
 			</select>
 		</div>
-		<h2>{{ rootNoteName }} major scale</h2>
-		<FretboardComponent :instrument="instrument" :bubbles="rootBubbles" />
-		<h2>{{ fourthNoteName }} major scale</h2>
-		<FretboardComponent :instrument="instrument" :bubbles="fourthBubbles" />
-		<h2>{{ fifthNoteName }} major scale</h2>
-		<FretboardComponent :instrument="instrument" :bubbles="fifthBubbles" />
+		<div>
+			<input id="showScales" type="checkbox" v-model="showScales"/>
+			<label for="showScales">Show individual scales</label>
+			<input id="showCommonNotes" type="checkbox" v-model="showCommonNotes" />
+			<label for="showCommonNotes">Show common notes</label>
+		</div>
+		<div v-if="showScales">
+			<h2>{{ rootNoteName }} major scale</h2>
+			<FretboardComponent :instrument="instrument" :bubbles="rootBubbles" />
+			<h2>{{ fourthNoteName }} major scale</h2>
+			<FretboardComponent :instrument="instrument" :bubbles="fourthBubbles" />
+			<h2>{{ fifthNoteName }} major scale</h2>
+			<FretboardComponent :instrument="instrument" :bubbles="fifthBubbles" />
+		</div>
+		<div v-if="showCommonNotes">
+			<h2>Common notes</h2>
+			<FretboardComponent :instrument="instrument" :bubbles="commonBubbles" />
+		</div>
 	</div>
 </template>
 
@@ -32,11 +48,13 @@ import FretboardComponent from "@/components/Fretboard.vue";
 import {
 	DefaultInstruments,
 	GetBubblesByMajorKey,
+	GetBubblesByMajorKeyCommonNotes,
 	GetNoteNameSharp,
 	TransposeNote,
 } from "@/fretboard";
 
 const getNoteName = GetNoteNameSharp;
+
 
 export default {
 	name: "MajorKeyNotes",
@@ -52,6 +70,8 @@ export default {
 				return { note: n, noteName: getNoteName(n) };
 			}),
 			majorKeyNote: 1,
+			showScales: true,
+			showCommonNotes: false
 		};
 	},
 	computed: {
@@ -91,17 +111,16 @@ export default {
 				GetNoteNameSharp
 			);
 		},
+		commonBubbles() {
+			return GetBubblesByMajorKeyCommonNotes(
+				this.majorKeyNote,
+				this.instrument,
+				GetNoteNameSharp
+			);
+		},
 	},
 };
 </script>
 
 <style>
-#zapp {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #2c3e50;
-	margin-top: 60px;
-}
 </style>

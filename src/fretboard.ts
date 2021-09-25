@@ -121,6 +121,43 @@ export function GetBubblesByMajorKey(keyNote: Note, instrument : Instrument, get
 	}
 	return result;
 }
+export function GetBubblesByMajorKeyCommonNotes(keyNote: Note, instrument : Instrument, getNoteName : GetNoteName) {
+	const rootNotes = GetNotesForMajorKey(keyNote);
+	const fourthNotes = GetNotesForMajorKey(TransposeNote(keyNote, 5));
+	const fifthNotes = GetNotesForMajorKey(TransposeNote(keyNote, 7));
+	const commonNotes = rootNotes.filter(function (n) {
+		return fourthNotes.indexOf(n) !== -1 && fifthNotes.indexOf(n) !== -1;
+	});
+	console.log(rootNotes);
+	console.log(fourthNotes);
+	console.log(fifthNotes);
+	console.log(commonNotes);
+	const result : Record<number, Record<number, Bubble>> = {};
+	for (
+		let stringIndex = 0;
+		stringIndex < instrument.strings.length;
+		stringIndex++
+	) {
+		const string = instrument.strings[stringIndex];
+		const stringBubbles :Record<number, Bubble> = {};
+		for (
+			let fretIndex = 0;
+			fretIndex <= instrument.numberOfFrets;
+			fretIndex++
+		) {
+			const fretNoteIndex = TransposeNote(string, fretIndex);
+			if (commonNotes.indexOf(fretNoteIndex) !== -1) {
+				const fretNoteName = getNoteName(fretNoteIndex);
+				stringBubbles[fretIndex] = {
+					text: fretNoteName,
+					color: fretNoteIndex === keyNote ? "orange" : "yellow",
+				};
+			}
+		}
+		result[stringIndex + 1] = stringBubbles;
+	}
+	return result;
+}
 export function GetBubblesForAllFrets(instrument : Instrument, getNoteName : GetNoteName) {
 	const result : Record<number, Record<number, Bubble>> = {};
 	for (
