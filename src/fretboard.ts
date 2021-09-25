@@ -54,12 +54,14 @@ export enum FretMarkType {
 }
 
 export class Instrument {
+	name: string;
 	strings : Note[] = [];
 	numberOfFrets : number = 0;
 	fretMarks: Record<number, FretMarkType> = {};
 
-	constructor(strings:Note[], numberOfFrets:number, fretMarks: Record<number, FretMarkType>)
+	constructor(name: string, strings:Note[], numberOfFrets:number, fretMarks: Record<number, FretMarkType>)
 	{
+		this.name = name;
 		this.strings = strings;
 		this.numberOfFrets = numberOfFrets;
 		this.fretMarks = fretMarks;
@@ -167,6 +169,7 @@ export function GetBubblesForAllFrets(instrument : Instrument, getNoteName : Get
 
 export const DefaultInstruments = {
 	ukulele: new Instrument(
+		'Ukulele',
 		[1, 8, 4, 11],
 		14,
 		{
@@ -177,6 +180,7 @@ export const DefaultInstruments = {
 		},
 	),
 	guitar: new Instrument (
+		'guitar',
 		[8, 3, 11, 6, 1, 8],
 		16,
 		{

@@ -2,6 +2,14 @@
 	<div>
 		<h1>Major Key Notes</h1>
 		<div>
+			Choose instrument: 
+			<select v-model="instrument">
+				<option v-for="instrument in instruments" :value="instrument" :key="instrument.name">
+					{{ instrument.name }}
+				</option>
+			</select>
+		</div>
+		<div>
 			Choose key: 
 			<select v-model="majorKeyNote">
 				<option v-for="note in notes" :value="note.note" :key="note.note">
@@ -39,6 +47,7 @@ export default {
 		const instrument = DefaultInstruments.ukulele;
 		return {
 			instrument: instrument,
+			instruments: DefaultInstruments,
 			notes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(function (n) {
 				return { note: n, noteName: getNoteName(n) };
 			}),

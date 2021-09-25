@@ -1,6 +1,14 @@
 <template>
 	<div>
 		<h1>All Notes</h1>
+		<div>
+			Choose instrument: 
+			<select v-model="instrument">
+				<option v-for="instrument in instruments" :value="instrument" :key="instrument.name">
+					{{ instrument.name }}
+				</option>
+			</select>
+		</div>
 		<FretboardComponent :instrument="instrument" :bubbles="bubbles" />
 	</div>
 </template>
@@ -25,6 +33,7 @@ export default {
 		const instrument = DefaultInstruments.ukulele;
 		return {
 			instrument: instrument,
+			instruments: DefaultInstruments,
 		};
 	},
 	computed: {
