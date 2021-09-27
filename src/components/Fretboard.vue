@@ -75,8 +75,6 @@ export default {
 		fretboardStyle() {
 			return {
 				"--string-count": this.instrument.strings.length,
-				"--fretboard-height": 300,
-				"--string-height": 10,
 				"--string-top":
 					"calc(((var(--fretboard-height) - var(--string-height))/ var(--string-count)) / 2 - 2)",
 			};
@@ -98,6 +96,8 @@ body {
 }
 
 .fretboard {
+	--string-height: 10;
+	--fretboard-height: 300;
 	display: flex;
 	flex-direction: column;
 	width: fit-content;
@@ -180,7 +180,9 @@ body {
 }
 
 @media print {
-	/* print styling */
+	.fretboard {
+		--fretboard-height: 150;
+	}
 	.string:first-child {
 		border-top: grey;
 		border-top-width: 2px;
@@ -211,6 +213,10 @@ body {
 		background-color: white !important;
 		border: grey 1px solid;
 		opacity: 1;
+		width: 16px;
+		height: 16px;
+		line-height: 16px;
+		font-size:66%
 	}
 
 	.string-fret:first-child {
@@ -220,6 +226,8 @@ body {
 	.double-fretmark::before,
 	.double-fretmark::after {
 		background-color: darkgrey;
+		height: 10px;
+		width: 10px;
 	}
 }
 

@@ -42,16 +42,24 @@
 			</div>
 		</div>
 		<div v-if="showScales">
-			<h2>{{ rootNoteName }} major scale</h2>
-			<FretboardComponent :instrument="instrument" :bubbles="rootBubbles" />
-			<h2>{{ fourthNoteName }} major scale</h2>
-			<FretboardComponent :instrument="instrument" :bubbles="fourthBubbles" />
-			<h2>{{ fifthNoteName }} major scale</h2>
-			<FretboardComponent :instrument="instrument" :bubbles="fifthBubbles" />
+			<div class="fretboard-with-title">
+				<h2>{{ rootNoteName }} major scale</h2>
+				<FretboardComponent :instrument="instrument" :bubbles="rootBubbles" />
+			</div>
+			<div class="fretboard-with-title">
+				<h2>{{ fourthNoteName }} major scale</h2>
+				<FretboardComponent :instrument="instrument" :bubbles="fourthBubbles" />
+			</div>
+			<div class="fretboard-with-title">
+				<h2>{{ fifthNoteName }} major scale</h2>
+				<FretboardComponent :instrument="instrument" :bubbles="fifthBubbles" />
+			</div>
 		</div>
 		<div v-if="showCommonNotes">
-			<h2>Common notes</h2>
-			<FretboardComponent :instrument="instrument" :bubbles="commonBubbles" />
+			<div class="fretboard-with-title">
+				<h2>Common notes</h2>
+				<FretboardComponent :instrument="instrument" :bubbles="commonBubbles" />
+			</div>
 		</div>
 	</div>
 </template>
@@ -155,6 +163,9 @@ export default {
 @media print {
 	#options {
 		display: none;
+	}
+	.fretboard-with-title{
+		break-inside: avoid;
 	}
 }
 </style>
