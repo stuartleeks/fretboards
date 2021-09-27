@@ -34,12 +34,12 @@
 					</option>
 				</select>
 			</div>
-		</div>
-		<div>
-			<input id="showScales" type="checkbox" v-model="showScales" />
-			<label for="showScales">Show individual scales</label>
-			<input id="showCommonNotes" type="checkbox" v-model="showCommonNotes" />
-			<label for="showCommonNotes">Show common notes</label>
+			<div>
+				<input id="showScales" type="checkbox" v-model="showScales" />
+				<label for="showScales">Show individual scales</label>
+				<input id="showCommonNotes" type="checkbox" v-model="showCommonNotes" />
+				<label for="showCommonNotes">Show common notes</label>
+			</div>
 		</div>
 		<div v-if="showScales">
 			<h2>{{ rootNoteName }} major scale</h2>
@@ -150,5 +150,11 @@ export default {
 }
 #options > div {
 	padding-top: 0.5em;
+}
+
+@media print {
+	#options {
+		display: none;
+	}
 }
 </style>

@@ -90,10 +90,8 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Lato:100,300,400");
 
 body {
-	background-color: aqua;
 	font-family: Lato, sans-serif;
 }
-
 * {
 	margin: 0;
 	padding: 0;
@@ -102,50 +100,38 @@ body {
 .fretboard {
 	display: flex;
 	flex-direction: column;
-	background-color: #be975b;
 	width: fit-content;
 	min-width: 100%;
 	height: calc(var(--fretboard-height) * 1px);
 	overflow: hidden; /* prevent offset box shadow from string overflowing*/
 }
-
 .string {
 	width: 100%;
 	height: 100%;
 	display: flex;
 	position: relative;
 }
-
 .string::before {
 	content: "";
 	width: 100%;
-	height: calc(var(--string-height) * 1px);
-	background: linear-gradient(rgb(245, 244, 244), #999);
-	box-shadow: 76px 3px 10px #8d6d3d;
 	z-index: 1;
 	position: absolute;
 	top: calc(var(--string-top) * 1px);
 }
-
 .string-fret {
 	display: flex;
 	flex: 1;
-	border-right: 8px solid;
-	border-image: linear-gradient(to left, #777, #bbb, #777) 1 100%;
 	justify-content: center;
 	align-items: center;
 	position: relative;
 }
 
 .string-fret:first-child {
-	background-color: #171717;
 	min-width: 76px;
 	border-right: 12px solid;
 	flex-grow: 0;
 	flex-shrink: 0;
-	border-image: linear-gradient(to left, #777, #fff, #bbb) 1 100%;
 }
-
 .string-fret::before,
 .string-fret:first-child::before {
 	content: attr(data-note);
@@ -165,10 +151,7 @@ body {
 	line-height: 33px;
 	text-align: center;
 	z-index: 3;
-	color: gray;
-	background-color: yellow;
 	position: absolute;
-	opacity: 0.8;
 }
 
 .single-fretmark::after,
@@ -179,7 +162,6 @@ body {
 	height: 20px;
 	width: 20px;
 	border-radius: 50%;
-	background-color: #806233;
 }
 
 .single-fretmark::after {
@@ -195,5 +177,101 @@ body {
 .double-fretmark::after {
 	top: calc(var(--fretboard-height) * 2 / 3 * 1px);
 	transform: translate(-140%, -50%);
+}
+
+@media print {
+	/* print styling */
+	.string:first-child {
+		border-top: grey;
+		border-top-width: 2px;
+		border-top-style: solid;
+	}
+	.string:last-child {
+		border-bottom: grey;
+		border-bottom-width: 2px;
+		border-bottom-style: solid;
+	}
+	.string {
+		border-left: grey 3px solid;
+	}
+	.string::before {
+		background: linear-gradient(#000, #000);
+		height: 3px;
+	}
+	.string-fret {
+		display: flex;
+		flex: 1;
+		border-right: 8px solid;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+	}
+	.bubble {
+		color: black !important;
+		background-color: white !important;
+		border: grey 1px solid;
+		opacity: 1;
+	}
+
+	.string-fret:first-child {
+		background-color: lightgrey;
+	}
+	.single-fretmark::after,
+	.double-fretmark::before,
+	.double-fretmark::after {
+		background-color: darkgrey;
+	}
+}
+
+@media screen {
+	.fretboard {
+		background-color: #be975b;
+	}
+	.string {
+		border: none;
+	}
+	.string::before {
+		height: calc(var(--string-height) * 1px);
+		background: linear-gradient(rgb(245, 244, 244), #999);
+		box-shadow: 76px 3px 10px #8d6d3d;
+	}
+	.string-fret {
+		border-right: 8px solid;
+		border-image: linear-gradient(to left, #777, #bbb, #777) 1 100%;
+	}
+	.string-fret:first-child {
+		background-color: #171717;
+		border-image: linear-gradient(to left, #777, #fff, #bbb) 1 100%;
+	}
+
+	.string-fret::before,
+	.string-fret:first-child::before {
+		content: attr(data-note);
+		width: 33px;
+		height: 33px;
+		border-radius: 50%;
+		line-height: 33px;
+		text-align: center;
+		z-index: 3;
+		color: lightgray;
+		opacity: 0.8;
+	}
+	.bubble {
+		width: 33px;
+		height: 33px;
+		border-radius: 50%;
+		line-height: 33px;
+		text-align: center;
+		z-index: 3;
+		color: gray;
+		background-color: yellow;
+		position: absolute;
+		opacity: 0.8;
+	}
+	.single-fretmark::after,
+	.double-fretmark::before,
+	.double-fretmark::after {
+		background-color: #806233;
+	}
 }
 </style>
