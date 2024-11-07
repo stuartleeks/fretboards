@@ -197,7 +197,8 @@ body {
 		border-left: grey 3px solid;
 	}
 	.string::before {
-		background: linear-gradient(#000, #000);
+		/* use boxshadow for shading in print version as background colour/images are skipped by default */
+		box-shadow: inset -1px -1px 100px   100px black;
 		height: 3px;
 	}
 	.string-fret {
@@ -220,7 +221,8 @@ body {
 	}
 
 	.string-fret:first-child {
-		background-color: lightgrey;
+		/* use boxshadow for shading in print version as background colour/images are skipped by default */
+		box-shadow: inset -1px -1px 100px   100px lightgrey;
 	}
 	.single-fretmark::after,
 	.double-fretmark::before,
