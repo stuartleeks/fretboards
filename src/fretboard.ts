@@ -217,7 +217,7 @@ export const DefaultInstruments = {
 		},
 	),
 	guitar: new Instrument (
-		'guitar',
+		'Guitar',
 		[8, 3, 11, 6, 1, 8],
 		16,
 		{
@@ -230,6 +230,22 @@ export const DefaultInstruments = {
 			21: FretMarkType.Single,
 		},
 	),
+	bassGuitar: new Instrument (
+		'Bass Guitar',
+		[11, 6, 1, 8],
+		// [8, 3, 11, 6],
+		16,
+		{
+			5: FretMarkType.Single,
+			7: FretMarkType.Single,
+			9: FretMarkType.Single,
+			12: FretMarkType.Double,
+			15: FretMarkType.Single,
+			19: FretMarkType.Single,
+			21: FretMarkType.Single,
+		},
+	),
+	
 };
 
 
